@@ -54,5 +54,11 @@ cargo install elf2uf2-rs --locked
 cargo install probe-run
 ```
 
+Note: May need to add lidudev-dev system library:
+
+ ```
+ sudo apt install libudev-dev
+ ```
+
 ## License
 
