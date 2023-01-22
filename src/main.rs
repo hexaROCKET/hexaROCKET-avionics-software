@@ -4,15 +4,14 @@
 #![no_std]
 #![no_main]
 
+#[link_section = ".boot2"]
+#[used]
+pub static BOOT2: [u8; 256] = rp2040_boot2::BOOT_LOADER_GENERIC_03H;
+
 use rp2040_hal as hal;
 
-use hal::entry;
-use defmt::*;
-use defmt_rtt as _;
-use embedded_hal::digital::v2::OutputPin;
-use panic_probe as _;
-
 use hal::{
+    entry,
     clocks::{init_clocks_and_plls, Clock},
     pac,
     sio::Sio,
@@ -20,15 +19,14 @@ use hal::{
     gpio
 };
 
-
-#[link_section = ".boot2"]
-#[used]
-pub static BOOT2: [u8; 256] = rp2040_boot2::BOOT_LOADER_GENERIC_03H;
-
+use embedded_hal::digital::v2::OutputPin;
+use defmt_rtt as _;
+use panic_probe as _;
+// use defmt::*;
 
 #[entry]
 fn main() -> ! {
-    info!("Program start");
+    // info!("Program start");
     let mut pac = pac::Peripherals::take().unwrap();
     let core = pac::CorePeripherals::take().unwrap();
     let mut watchdog = Watchdog::new(pac.WATCHDOG);
@@ -60,10 +58,10 @@ fn main() -> ! {
     let mut led_pin = pins.gpio18.into_push_pull_output();
 
     loop {
-        info!("on!");
+        // info!("on!");
         led_pin.set_high().unwrap();
         delay.delay_ms(500);
-        info!("off!");
+        // info!("off!");
         led_pin.set_low().unwrap();
         delay.delay_ms(500);
     }

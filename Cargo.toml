@@ -1,20 +1,28 @@
 [package]
 edition = "2021"
-name = "rp2040-project-template"
+name = "rp2040-blinky"
 version = "0.1.0"
 
 [dependencies]
-cortex-m = "0.7"
-cortex-m-rt = "0.7"
-embedded-hal = { version = "0.2.5", features = ["unproven"] }
 
-defmt = "0.3"
-defmt-rtt = "0.4"
-panic-probe = { version = "0.3", features = ["print-defmt"] }
-
-# We're using a Pico by default on this template
-#rp-pico = "0.6"
-
-# If you're not going to use a Board Support Package you'll need these:
 rp2040-hal = { version="0.6", features=["rt"] }
 rp2040-boot2 = "0.2"
+
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+
+embedded-hal = { version = "0.2.5", features = ["unproven"] }
+
+defmt-rtt = "0.4"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+# defmt = "0.3"
+
+[features]
+default = ['defmt-default']
+# these features are required by defmt
+defmt-default = []
+defmt-trace = []
+defmt-debug = []
+defmt-info = []
+defmt-warn = []
+defmt-error = []
